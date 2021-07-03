@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.optim as optim
 
 
 class DoubleConv(nn.Module):
@@ -51,7 +50,7 @@ class Up(nn.Module):
         x1 = F.pad(x1, [diffX//2, diffX - diffY//2, diffY//2, diffY-diffY//2])
         
         x = torch.cat((x2, x1), dim=1)
-        return x
+        return self.final_conv(x)
 
 class OutConv(nn.Module):
     """ Conv2d 1x1 """

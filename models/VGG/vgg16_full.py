@@ -1,8 +1,19 @@
+"""
+A simple VGG16 model implementation.
+
+Input = [224, 224]
+Filter size = 3x3 and 1x1, stride = 1
+MaxPool 2x2, stride = 2
+
+vgg16 = [Input, conv3-64 * 2, Max, conv3-128 * 2, Max, conv3-256 * 3, Max, conv3-512 * 3, Max, conv3-512 * 3, Max,
+ FC-4096 * 2, FC-1000, SoftMax]
+
+In addition, BatchNorm2d module are also added. 
+"""
+
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.nn.modules.activation import ReLU
-import torch.optim as optim
 
 # To supress unneccsary warnings
 import warnings
@@ -70,16 +81,13 @@ class VGG(nn.Module):
         )
 
     def forward(self, x):
-        print(f'X = {x.shape}') 
         x = self.block1(x)
-        print(f'X = {x.shape}')
         x = x.reshape(x.shape[0], -1)
-        print(f'X upon reshaping = {x.shape}') 
         x = self.fcs(x)
-        print(f'FCs output = {x.shape}')
         return x
 
-model = VGG(in_channels=3, num_classes=1000)
-x = torch.randn((1,3,224,224)) # 512*7*7
-# x = torch.randn((1,3,256,256)) # 512*8*8
-print(model(x).shape)
+if __name__ == "__main__":
+    model = VGG(in_channels=3, num_classes=1000)
+    x = torch.randn((1,3,224,224)) # 512*7*7 
+    # x = torch.randn((1,3,256,256)) # 512*8*8
+    print(f'Final Shape: {model(x).shape}')

@@ -4,7 +4,6 @@
 ```
 root/
 .
-├── 
 ├── config.yaml
 ├── README.md
 ├── mean_sd.py
