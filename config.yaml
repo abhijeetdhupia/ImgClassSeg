@@ -1,0 +1,6 @@
+author: "Abhijeet Dhupia"
+webpage: "abhijeetdhupia.com"
+
+tasks: [ "classification", "segmentation" ]
+root: "./"
+dataset: "./data"
